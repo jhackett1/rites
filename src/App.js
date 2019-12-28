@@ -1,17 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
+import "medium-editor/dist/css/medium-editor.css"
+import Editor from "react-medium-editor"
 
 const App = () => {
-
-  const [text, setText] = useState("")
-
+  const [text, setText] = useState("Test test")
   return (
     <div>
-
       {text}
-
-      <textarea onChange={e => setText(e.target.value)}>{text}</textarea>
+      <Editor
+        text={text}
+        onChange={text => setText(text)}
+        />
     </div>
-  );
+  )
 }
 
 export default App
