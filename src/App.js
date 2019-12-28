@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import "medium-editor/dist/css/medium-editor.css"
 import Editor from "react-medium-editor"
+import { StorageContextConsumer } from "./contexts/storageContext"
 
 const App = () => {
   const [text, setText] = useState("Test test")

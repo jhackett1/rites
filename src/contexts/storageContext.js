@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
 
-const ShortlistContext = React.createContext()
+const StorageContext = React.createContext()
 
-export const ShortlistContextProvider = ({
+export const StorageContextProvider = ({
     children
 }) => {
 
@@ -11,26 +11,30 @@ export const ShortlistContextProvider = ({
     // unbake
     useEffect(()=>{
         initialise()
+        window.localStorage.getItem(JSON.parse(documents))
     }, [])
 
     // bake
     useEffect(()=>{
         initialise()
+        window.localStorage.setItem(JSON.stringify(documents))
     }, [documents])
 
     const initialise = () => {
-
+        if(!window.localStorage.getItem("documents")){
+            window.localStorage.setItem(JSON.stringify([]))
+        }
     }
 
     return (
-        <ShortlistContext.Provider
+        <StorageContext.Provider
             value={{
-                // shortlist: shortlist,
+                documents: documents
             }}
         >
             {children}
-        </ShortlistContext.Provider>
+        </StorageContext.Provider>
     )
 }
 
-export const ShortlistContextConsumer = ShortlistContext.Consumer
+export const StorageContextConsumer = StorageContext.Consumer
