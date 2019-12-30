@@ -6,31 +6,23 @@ export const StorageContextProvider = ({
     children
 }) => {
 
-    const [ documents, setDocuments ] = useState([])
+    const [documents, setDocuments] = useState([])
 
     // unbake
-    useEffect(()=>{
-        initialise()
-        window.localStorage.getItem(JSON.parse(documents))
+    useEffect(() => {
+        setDocuments(JSON.parse(window.localStorage.getItem("documents")))
     }, [])
 
     // bake
     useEffect(()=>{
-        initialise()
-        window.localStorage.setItem(JSON.stringify(documents))
-    }, [documents])
+        window.localStorage.setItem("documents", JSON.stringify(documents))
+    })
 
-    const initialise = () => {
-        if(!window.localStorage.getItem("documents")){
-            window.localStorage.setItem(JSON.stringify([]))
-        }
-    }
+    
 
     return (
         <StorageContext.Provider
-            value={{
-                documents: documents
-            }}
+            value={{}}
         >
             {children}
         </StorageContext.Provider>

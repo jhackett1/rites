@@ -1,19 +1,10 @@
-import React, { useState } from "react"
-import "medium-editor/dist/css/medium-editor.css"
-import Editor from "react-medium-editor"
-import { StorageContextConsumer } from "./contexts/storageContext"
+import React from "react"
+import { StorageContextProvider } from "./contexts/storageContext"
+import Editor from "./components/Editor"
 
-const App = () => {
-  const [text, setText] = useState("Test test")
-  return (
-    <div>
-      {text}
-      <Editor
-        text={text}
-        onChange={text => setText(text)}
-        />
-    </div>
-  )
-}
+const App = () => 
+  <StorageContextProvider>
+    <Editor/>
+  </StorageContextProvider>
 
 export default App
