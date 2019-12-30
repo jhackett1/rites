@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import "./seed"
 
 const StorageContext = React.createContext()
 
@@ -7,18 +8,6 @@ export const StorageContextProvider = ({
 }) => {
 
     const [documents, setDocuments] = useState([])
-
-    // unbake
-    useEffect(() => {
-        setDocuments(JSON.parse(window.localStorage.getItem("documents")))
-    }, [])
-
-    // bake
-    useEffect(()=>{
-        window.localStorage.setItem("documents", JSON.stringify(documents))
-    })
-
-    
 
     return (
         <StorageContext.Provider

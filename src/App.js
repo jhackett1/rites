@@ -1,10 +1,10 @@
 import React from "react"
 import { StorageContextProvider } from "./contexts/storageContext"
-import Editor from "./components/Editor"
+import EditorView from "./components/EditorView"
 
 const App = () => 
   <StorageContextProvider>
-    <Editor/>
+    <EditorView/>
   </StorageContextProvider>
 
 export default App
