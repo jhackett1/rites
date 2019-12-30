@@ -7,11 +7,15 @@ export const StorageContextProvider = ({
     children
 }) => {
 
-    const [documents, setDocuments] = useState([])
+    const [selectedDoc, setSelectedDoc] = useState({})
+    const [allDocs, setAllDocs] = useState([])
 
     return (
         <StorageContext.Provider
-            value={{}}
+            value={{
+                selectedDoc,
+                setSelectedDoc
+            }}
         >
             {children}
         </StorageContext.Provider>
