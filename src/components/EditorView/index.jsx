@@ -3,34 +3,34 @@ import { StorageContextConsumer } from "../../contexts/storageContext"
 
 const EditorView = ({
     selectedDoc,
-    setSelectedDoc
+    handleTitleChange,
+    handleBodyChange,
+    save
 }) => {
 
     return(
         <>
-            <input 
+            <textarea
+                className="title-editor"
                 value={selectedDoc.title} 
-                onChange={e => setSelectedDoc({
-                    ...selectedDoc, 
-                    title: e.target.value
-                })} 
+                onChange={e => handleTitleChange(e.target.value)} 
                 placeholder="Enter title..."
-                />
-            <br/>
-            <textarea 
-                onChange={e => setSelectedDoc({
-                    ...selectedDoc, 
-                    body: e.target.value
-                })}
-                placeholder="Enter body..."
                 >
-                {selectedDoc.body}
             </textarea>
+            <textarea 
+                className="body-editor"
+                onChange={e => handleBodyChange(e.target.value)}
+                placeholder="Enter body..."
+                value={selectedDoc.body}
+                >
+            </textarea>
+            <button onClick={save}>
+                Save
+            </button>
         </>
 
     )
 }
-
 
 export default () =>
     <StorageContextConsumer>
