@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import useStorage from "../hooks/useStorage"
 
 const StorageContext = React.createContext()
@@ -7,15 +7,21 @@ export const StorageContextProvider = ({
     children
 }) => {
 
+    const [allDocs, setAllDocs] = useStorage([])
+
     const fetchMostRecent = () => {
-        return allDocs[allDocs.length - 1] || {
+        if(allDocs && allDocs[0]){
+            return allDocs.sort((a, b) => b.date - a.date)[0]
+        }
+        return  {
             id: 1,
             title: "",
             body: ""
         }
     }
 
-    const [allDocs, setAllDocs] = useStorage([])
+    console.log(fetchMostRecent())
+
     const [selectedDoc, setSelectedDoc] = useState(fetchMostRecent())
 
     const handleTitleChange = newTitle => setSelectedDoc({
@@ -29,9 +35,11 @@ export const StorageContextProvider = ({
     })
 
     const save = () => {
-        let docsCopy = [].concat(allDocs)
-        docsCopy.push(selectedDoc)
-        setAllDocs(docsCopy)
+        let remainingDocs = allDocs.filter(doc => doc.id !== selectedDoc.id)
+        setAllDocs(remainingDocs.concat({
+            ...selectedDoc,
+            date: new Date()
+        }))
     }
 
     return (
