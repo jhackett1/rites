@@ -10,17 +10,12 @@ export const StorageContextProvider = ({
     const [allDocs, setAllDocs] = useStorage([])
 
     const fetchMostRecent = () => {
-        if(allDocs && allDocs[0]){
-            return allDocs.sort((a, b) => b.date - a.date)[0]
-        }
-        return  {
+        return (allDocs && allDocs[0]) ? allDocs.sort((a, b) => b.date - a.date)[0] : {
             id: 1,
             title: "",
             body: ""
         }
     }
-
-    console.log(fetchMostRecent())
 
     const [selectedDoc, setSelectedDoc] = useState(fetchMostRecent())
 
@@ -35,7 +30,7 @@ export const StorageContextProvider = ({
     })
 
     const save = () => {
-        let remainingDocs = allDocs.filter(doc => doc.id !== selectedDoc.id)
+        let remainingDocs = allDocs.filter(doc => doc.id !== selectedDoc.id) 
         setAllDocs(remainingDocs.concat({
             ...selectedDoc,
             date: new Date()

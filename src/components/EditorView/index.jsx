@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { StorageContextConsumer } from "../../contexts/storageContext"
+import { useIdle } from "use-idle"
 
 const EditorView = ({
     selectedDoc,
@@ -7,6 +8,24 @@ const EditorView = ({
     handleBodyChange,
     save
 }) => {
+
+    const [unsavedChanges, setUnsavedChanges] = useState(false)
+    const [saving, setSaving] = useState(false)
+
+    const isIdle = useIdle({
+        timeToIdle: 1000
+    })
+
+    // this is naive and needs improving
+    // should check:
+
+    // 1. any changes since last change
+    // 2. warn about autosave
+    useEffect(() => {
+        setSaving(true)
+        isIdle && save()
+        setSaving(false)
+    }, [isIdle])
 
     return(
         <>
@@ -24,9 +43,7 @@ const EditorView = ({
                 value={selectedDoc.body}
                 >
             </textarea>
-            <button onClick={save}>
-                Save
-            </button>
+            {saving && <p>Autosaving...</p>}
         </>
 
     )
