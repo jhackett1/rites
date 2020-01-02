@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { StorageContextConsumer } from "../../contexts/storageContext"
 import { useIdle } from "use-idle"
+import ContentEditable from 'react-contenteditable'
 
 const EditorView = ({
     selectedDoc,
@@ -18,23 +19,20 @@ const EditorView = ({
     useEffect(() => {
         if (isIdle && unsavedChanges){
             save()
-            console.log("saving...")
             setUnsavedChanges(false)
         }
     }, [isIdle, save, unsavedChanges])
 
     return(
         <>
-            <textarea
-                className="title-editor"
-                value={selectedDoc.title} 
+            <ContentEditable
+                html={selectedDoc.title}
                 onChange={e => {
                     setUnsavedChanges(true)
-                    handleTitleChange(e.target.value)
-                }} 
-                placeholder="Enter title..."
-                >
-            </textarea>
+                    handleTitleChange(e.currentTarget.textContent)
+                }}
+                tagName="h1"
+            />
             <textarea 
                 className="body-editor"
                 onChange={e => {
@@ -52,8 +50,7 @@ const EditorView = ({
 
 export default () =>
     <StorageContextConsumer>
-        {
-            context =>
-                <EditorView {...context}/>
+        {context =>
+            <EditorView {...context}/>
         }
     </StorageContextConsumer>
