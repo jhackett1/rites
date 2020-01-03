@@ -7,7 +7,7 @@ export const StorageContextProvider = ({
     children
 }) => {
 
-    const [documents, setDocuments] = useStorage([])
+    const [documents, setDocuments] = useStorage("documents", [])
 
     return (
         <StorageContext.Provider

@@ -1,8 +1,6 @@
 import { useState } from "react"
 
-export default initialValue => {
-
-    const key = "documents"
+export default (key, initialValue) => {
 
     const [storedValue, setStoredValue] = useState(() => {
         try {
