@@ -40,12 +40,12 @@ const Editor = ({
         <>
             <ContentEditable
                 style={{
-                    height: "100px"
+                    minHeight: "100px"
                 }}
                 html={selectedDoc.title}
                 onChange={e => {
+                    handleTitleChange(e.target.value)
                     setUnsavedChanges(true)
-                    handleTitleChange(e.currentTarget.textContent)
                 }}
                 tagName="h1"
             />
