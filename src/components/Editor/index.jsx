@@ -1,25 +1,13 @@
 import React, { useState, useEffect } from "react"
-import { StorageContextConsumer } from "../../contexts/storageContext"
 import { useIdle } from "use-idle"
 import ContentEditable from "react-contenteditable"
-import List from "../List"
 
-const EditorView = ({
+const Editor = ({
     selectedDoc,
-    handleTitleChange,
-    handleBodyChange,
-    getDocById,
-    save,
-    allDocs,
-    match,
-    newDoc
+    setSelectedDoc,
+    documents,
+    setDocuments
 }) => {
-
-    useEffect(()=>{
-        if(match.params.id){
-            getDocById(parseInt(match.params.id))
-        }
-    }, [match, getDocById])
 
     const [unsavedChanges, setUnsavedChanges] = useState(false)
 
@@ -27,20 +15,29 @@ const EditorView = ({
         timeToIdle: 500
     })
 
+    const handleTitleChange = newTitle => setSelectedDoc({
+        ...selectedDoc,
+        title: newTitle
+    })
+
+    const handleBodyChange = newBody => setSelectedDoc({
+        ...selectedDoc,
+        body: newBody
+    })
+
     useEffect(() => {
         if (isIdle && unsavedChanges){
-            save()
+            let remainingDocs = documents.filter(doc => doc.id !== selectedDoc.id) 
+            setDocuments(remainingDocs.concat({
+                ...selectedDoc,
+                date: new Date()
+            }))
             setUnsavedChanges(false)
         }
-    }, [isIdle, save, unsavedChanges])
+    }, [isIdle, unsavedChanges, documents, selectedDoc, setDocuments])
 
     return(
         <>
-
-            <button onClick={newDoc}>New document</button>
-
-            <List documents={allDocs}/>
-
             <ContentEditable
                 style={{
                     height: "100px"
@@ -63,13 +60,7 @@ const EditorView = ({
                 >
             </textarea>
         </>
-
     )
 }
 
-export default props =>
-    <StorageContextConsumer>
-        {context =>
-            <EditorView {...context} {...props}/>
-        }
-    </StorageContextConsumer>
+export default Editor

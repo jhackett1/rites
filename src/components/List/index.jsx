@@ -1,9 +1,10 @@
 import React from "react"
+import { StorageContextConsumer } from "../../contexts/storageContext"
 import { Link } from "react-router-dom"
 
 const List = ({
     documents
-}) =>
+}) => 
     <ul>
         {documents.map(doc =>
             <li key={doc.id}>
@@ -12,4 +13,9 @@ const List = ({
         )}
     </ul>
 
-export default List
+export default props =>
+    <StorageContextConsumer>
+        {context =>
+            <List {...context} {...props}/>
+        }
+    </StorageContextConsumer>
