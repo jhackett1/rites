@@ -1,14 +1,23 @@
 import React from "react"
 import { StorageContextConsumer } from "../../contexts/storageContext"
 import { Link } from "react-router-dom"
+import moment from "moment"
 
 const List = ({
     documents
 }) => 
     <ul>
-        {documents.map(doc =>
+        {console.log(documents[0].date)}
+        {documents
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .map(doc =>
             <li key={doc.id}>
-                <Link to={`/${doc.id}`}>{doc.title}</Link>
+                <Link to={`/${doc.id}`}><h2>{doc.title}</h2></Link>
+                <p>{doc.body
+                    .split(" ")
+                    .slice(0, 20)
+                    .join(" ")}...</p>
+                <p>{moment(doc.date).fromNow()}</p>
             </li>
         )}
     </ul>
