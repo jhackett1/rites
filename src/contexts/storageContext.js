@@ -10,6 +10,7 @@ export const StorageContextProvider = ({
     const [allDocs, setAllDocs] = useStorage([])
 
     const fetchMostRecent = () => {
+        console.log("derp")
         return (allDocs && allDocs[0]) ? allDocs.sort((a, b) => b.date - a.date)[0] : {
             id: 1,
             title: "",
@@ -19,6 +20,8 @@ export const StorageContextProvider = ({
 
     const [selectedDoc, setSelectedDoc] = useState(fetchMostRecent())
 
+    console.log(selectedDoc)
+    
     const handleTitleChange = newTitle => setSelectedDoc({
         ...selectedDoc,
         title: newTitle
@@ -37,14 +40,31 @@ export const StorageContextProvider = ({
         }))
     }
 
+    const getDocById = id => {
+        setSelectedDoc(allDocs.filter(doc => doc.id === id)[0])
+    }
+
+    const newDoc = () => {
+        let newId = allDocs.sort((a, b) => b.id - a.id)[0].id + 1
+        console.log(newId)
+        setSelectedDoc({
+            id: newId,
+            title: "",
+            body: ""
+        })
+    }
+
     return (
         <StorageContext.Provider
             value={{
+                allDocs,
                 selectedDoc,
                 setSelectedDoc,
                 handleTitleChange,
                 handleBodyChange,
-                save
+                save,
+                getDocById,
+                newDoc
             }}
         >
             {children}

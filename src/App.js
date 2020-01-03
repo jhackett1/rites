@@ -8,8 +8,9 @@ const App = () =>
   <StorageContextProvider>
     <Router>
       <div className="container">
-        <Route path="/" component={EditorView}/>
+        <Route exact path="/" component={EditorView}/>
         <Route path="/:id" component={EditorView}/>
+        <Route path="/new" component={}/>
       </div>
     </Router>
   </StorageContextProvider>
