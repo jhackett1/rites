@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 import Sidebar from "../Sidebar"
 
@@ -6,7 +6,8 @@ const Outer = styled.div`
   height: 100vh;
   width: calc(100vw + 300px);
   display: flex;
-  transform: translateX(-300px);
+  transition: transform 0.5s ease-out;
+  transform: ${props => props.panelOpen ? "translateX(0px)" : "translateX(-300px)"}
 `
 
 const Main = styled.main`
@@ -29,14 +30,21 @@ const Container = styled.div`
 
 const Layout = ({
     children
-}) =>
-    <Outer>
+}) => {
+
+  const [panelOpen, setPanelOpen] = useState(false)
+
+  return(
+    <Outer panelOpen={panelOpen}>
         <Sidebar/>
         <Main>
         <Container>
+            <button onClick={()=> setPanelOpen(!panelOpen)}>Open recents</button>
             {children}
         </Container>
         </Main>
     </Outer>
+  )
+}
 
 export default Layout

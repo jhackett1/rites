@@ -31,14 +31,19 @@ const GlobalStyle = createGlobalStyle`
   }
   *{
       font-family: Lora, serif;
-      color: #1C1C1C;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
   }
   body{
     overflow: hidden;
+    color: #1C1C1C;
+    @media (prefers-color-scheme: dark) {
+      background-color: #1c1c1c;
+      color: white !important;
+    }
   }
+
 `
 
 const App = () => 
