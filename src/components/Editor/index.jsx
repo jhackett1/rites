@@ -51,16 +51,6 @@ const EditorArea = ({
                 }}
                 tagName="h1"
             />
-            {/* <textarea 
-                className="body-editor"
-                onChange={e => {
-                    setUnsavedChanges(true)
-                    handleBodyChange(e.target.value)
-                }}
-                placeholder="Enter body..."
-                value={selectedDoc.body}
-                >
-            </textarea> */}
             <Editor
                 tag="div"
                 text={selectedDoc.body}
@@ -70,6 +60,7 @@ const EditorArea = ({
                 }}
                 // options={{ toolbar: { buttons: ['bold', 'italic', 'underline'] } }}
                 />
+            {unsavedChanges && <p>Saving changes...</p>}
         </>
     )
 }
