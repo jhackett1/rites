@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react"
 import { useIdle } from "use-idle"
 import ContentEditable from "react-contenteditable"
+import Editor from "react-medium-editor"
+import "medium-editor/dist/css/medium-editor.css"
 
-const Editor = ({
+const EditorArea = ({
     selectedDoc,
     setSelectedDoc,
     documents,
@@ -49,7 +51,7 @@ const Editor = ({
                 }}
                 tagName="h1"
             />
-            <textarea 
+            {/* <textarea 
                 className="body-editor"
                 onChange={e => {
                     setUnsavedChanges(true)
@@ -58,9 +60,18 @@ const Editor = ({
                 placeholder="Enter body..."
                 value={selectedDoc.body}
                 >
-            </textarea>
+            </textarea> */}
+            <Editor
+                tag="div"
+                text={selectedDoc.body}
+                onChange={text => {
+                    setUnsavedChanges(true)
+                    handleBodyChange(text)
+                }}
+                // options={{ toolbar: { buttons: ['bold', 'italic', 'underline'] } }}
+                />
         </>
     )
 }
 
-export default Editor
+export default EditorArea
