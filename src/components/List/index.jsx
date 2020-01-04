@@ -7,7 +7,6 @@ const List = ({
     documents
 }) => 
     <ul>
-        {console.log(documents[0].date)}
         {documents
             .sort((a, b) => new Date(b.date) - new Date(a.date))
             .map(doc =>

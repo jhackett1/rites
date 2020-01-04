@@ -29,6 +29,11 @@ const GlobalStyle = createGlobalStyle`
       font-style: italic;
       src: url("/Lora-BoldItalic.woff");
   }
+  @font-face{
+      font-family: "Open Sans";
+      font-weight: light;
+      src: url("/OpenSans-Light.woff");
+  }
   *{
       font-family: Lora, serif;
       margin: 0;
@@ -38,10 +43,10 @@ const GlobalStyle = createGlobalStyle`
   body{
     overflow: hidden;
     color: #1C1C1C;
-    @media (prefers-color-scheme: dark) {
+    /* @media (prefers-color-scheme: dark) {
       background-color: #1c1c1c;
       color: white !important;
-    }
+    } */
   }
 
 `

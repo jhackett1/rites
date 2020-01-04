@@ -9,10 +9,37 @@ const Outer = styled.aside`
     width: 300px;
 `
 
-const Sidebar = () =>
-    <Outer>
-        <Link to="/new">New document</Link>
-        <List/>
-    </Outer>
+const NewButton = styled(Link)`
+    width: 100%;
+    text-align: center;
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+    font-weight: light;
+    font-size: 0.9rem;
+    padding: 20px;
+    background: #1c1c1c;
+    display: block;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 1px;
+    &:hover{
+      filter: brightness(0.9)
+    }
+`
+
+const Sidebar = ({
+    panelOpen
+}) => {
+    return(
+        <Outer 
+            aria-hidden={!panelOpen}
+            tabIndex="-1"
+        >
+            <NewButton to="/new">New</NewButton>
+            <List/>
+        </Outer>
+    )
+
+}
 
 export default Sidebar
