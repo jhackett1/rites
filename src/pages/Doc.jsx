@@ -5,6 +5,7 @@ import { StorageContextConsumer } from "../contexts/storageContext"
 const MostRecentPage = ({
     documents,
     setDocuments,
+    history,
     match
 }) => {
 
@@ -14,8 +15,12 @@ const MostRecentPage = ({
     })
 
     useEffect(()=>{
-        setSelectedDoc(documents.filter(doc => doc.id === parseInt(match.params.id))[0])
-    }, [match, setSelectedDoc, documents])
+            if(documents.filter(doc => doc.id === parseInt(match.params.id))[0]){
+                setSelectedDoc(documents.filter(doc => doc.id === parseInt(match.params.id))[0])
+            } else {
+                history.push("/")
+            }
+    }, [match, setSelectedDoc, documents, history])
 
     return(
         <Editor
