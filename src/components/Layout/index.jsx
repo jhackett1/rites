@@ -30,6 +30,7 @@ const Container = styled.div`
 
 const RecentsButton = styled.button`
     font-family: "Open Sans", sans-serif;
+    background: none;
     border: none;
     font-weight: light;
     font-size: 0.9rem;
@@ -39,11 +40,16 @@ const RecentsButton = styled.button`
     top: 10px;
     cursor: pointer;
     letter-spacing: 1px;
+    z-index: 2;
+    &:focus{
+        background: #ADFEEA;
+        outline: 2px solid #ADFEEA;
+    }
 `
 
 const Overlay = styled.div`
   background: white;
-  opacity: 0.5;
+  opacity: 0.75;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -61,11 +67,11 @@ const Layout = ({
     <Outer panelOpen={panelOpen}>
         <Sidebar panelOpen={panelOpen}/>
         <Main>
-        {panelOpen && <Overlay onClick={()=> setPanelOpen(false)}/>}
         <Container>
-            <RecentsButton onClick={()=> setPanelOpen(!panelOpen)}>Recents</RecentsButton>
+  <RecentsButton onClick={()=> setPanelOpen(!panelOpen)}>{panelOpen ? "Close recents" : "Recents"}</RecentsButton>
             {children}
         </Container>
+        {panelOpen && <Overlay onClick={()=> setPanelOpen(false)}/>}
         </Main>
     </Outer>
   )

@@ -25,6 +25,9 @@ const NewButton = styled(Link)`
     &:hover{
       filter: brightness(0.9)
     }
+    &:focus{
+        outline: 2px solid #ADFEEA;
+    }
 `
 
 const Sidebar = ({

@@ -16,12 +16,22 @@ const SavingMessage = styled.p`
     letter-spacing: 1px;
 `
 
+const TitleEditor = styled(ContentEditable)`
+    &:empty:before {
+    content: attr(placeholder);
+    display: block;
+    color: #aaa;
+    }
+`
+
 const EditorArea = ({
     selectedDoc,
     setSelectedDoc,
     documents,
     setDocuments
 }) => {
+
+    console.log(selectedDoc)
 
     const [unsavedChanges, setUnsavedChanges] = useState(true)
 
@@ -52,7 +62,7 @@ const EditorArea = ({
 
     return(
         <>
-            <ContentEditable
+            <TitleEditor
                 style={{
                     minHeight: "100px"
                 }}
@@ -62,6 +72,7 @@ const EditorArea = ({
                     if(e.target.value !== "") setUnsavedChanges(true)
                 }}
                 tagName="h1"
+                placeholder="Title..."
             />
             <Editor
                 tag="div"
