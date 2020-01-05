@@ -1,6 +1,5 @@
 import React, { useState } from "react"
-import Editor from "../components/Editor"
-import { EditorState } from "draft-js"
+import EditorArea from "../components/EditorArea"
 import { StorageContextConsumer } from "../contexts/storageContext"
 
 const NewPage = ({
@@ -13,14 +12,17 @@ const NewPage = ({
         return {
             id: newId,
             title: "",
-            body: EditorState.createEmpty()
+            body: [{
+                type: 'paragraph',
+                children: [{ text: ""}],
+            }]
         }
     }
 
     const [selectedDoc, setSelectedDoc] = useState(createNew())
 
     return(
-        <Editor
+        <EditorArea
             selectedDoc={selectedDoc}
             setSelectedDoc={setSelectedDoc}
             documents={documents}

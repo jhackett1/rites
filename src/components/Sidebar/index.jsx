@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import List from "../List"
+import List from "../DocumentList"
 import { Link } from "react-router-dom"
 
 const Outer = styled.aside`

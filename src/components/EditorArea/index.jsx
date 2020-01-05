@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { useIdle } from "use-idle"
 import ContentEditable from "react-contenteditable"
-import { convertToRaw } from "draft-js"
-import Draft from "../Draft"
+import SlateEditor from "../SlateEditor"
 
 const SavingMessage = styled.p`
     font-family: "Open Sans", sans-serif;
@@ -63,7 +62,7 @@ const EditorArea = ({
             let remainingDocs = documents.filter(doc => doc.id !== selectedDoc.id) 
             setDocuments(remainingDocs.concat({
                 ...selectedDoc,
-                body: convertToRaw(selectedDoc.body.getCurrentContent()),
+                body: selectedDoc.body,
                 date: new Date()
             }))
             setUnsavedChanges(false)
@@ -83,12 +82,9 @@ const EditorArea = ({
                 tagName="h1"
                 placeholder="Title..."
             />
-            <Draft
+            <SlateEditor
                 value={selectedDoc.body}
-                onChange={text => {
-                    handleBodyChange(text)
-                    setUnsavedChanges(true)
-                }}
+                onChange={handleBodyChange}
             />
             {unsavedChanges && <SavingMessage>Saving changes...</SavingMessage>}
         </>

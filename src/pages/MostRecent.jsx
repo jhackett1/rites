@@ -1,6 +1,5 @@
 import React, { useState } from "react"
-import Editor from "../components/Editor"
-import { EditorState, convertFromRaw } from "draft-js"
+import EditorArea from "../components/EditorArea"
 import { StorageContextConsumer } from "../contexts/storageContext"
 
 const MostRecentPage = ({
@@ -13,13 +12,16 @@ const MostRecentPage = ({
             let doc = documents.sort((a, b) => b.date - a.date)[0]
             return {
                 ...doc,
-                body: EditorState.createWithContent(convertFromRaw(doc.body))
+                body: doc.body
             }
         } else {
             return {
                 id: 1,
                 title: "",
-                body: EditorState.createEmpty()
+                body: [{
+                    type: 'paragraph',
+                    children: [{ text: ""}],
+                }]
             }
         }
     }
@@ -27,7 +29,7 @@ const MostRecentPage = ({
     const [selectedDoc, setSelectedDoc] = useState(fetchMostRecent())
 
     return(
-        <Editor
+        <EditorArea
             selectedDoc={selectedDoc}
             setSelectedDoc={setSelectedDoc}
             documents={documents}
