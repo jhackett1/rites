@@ -4,12 +4,11 @@
   "private": true,
   "main": "src/main.js",
   "dependencies": {
-    "medium-draft": "^0.6.0-beta1",
+    "draft-js": "^0.11.3",
     "moment": "^2.24.0",
     "react": "^16.12.0",
     "react-contenteditable": "^3.3.3",
     "react-dom": "^16.12.0",
-    "react-medium-editor": "^1.8.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
     "styled-components": "^4.4.1",

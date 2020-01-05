@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { useIdle } from "use-idle"
 import ContentEditable from "react-contenteditable"
-import Editor from "react-medium-editor"
-import "medium-editor/dist/css/medium-editor.css"
-import "medium-editor/dist/css/themes/beagle.css"
+import { Editor, convertToRaw } from "draft-js"
 
 const SavingMessage = styled.p`
     font-family: "Open Sans", sans-serif;
@@ -36,23 +34,23 @@ const TitleEditor = styled(ContentEditable)`
     }
 `
 
-const StyledEditor = styled(Editor)`
-    /* font-size: 1.1rem; */
-    &:focus{
-        outline: none;
-    }
-    p{
-        margin-bottom: 25px;
-    }
-    ul, ol{
-        margin-left: 25px;
-        margin-bottom: 25px;
-    }
-    li{
-        padding-left: 5px;
-        margin-bottom: 10px;
-    }
-`
+// const StyledEditor = styled(Editor)`
+//     /* font-size: 1.1rem; */
+//     &:focus{
+//         outline: none;
+//     }
+//     p{
+//         margin-bottom: 25px;
+//     }
+//     ul, ol{
+//         margin-left: 25px;
+//         margin-bottom: 25px;
+//     }
+//     li{
+//         padding-left: 5px;
+//         margin-bottom: 10px;
+//     }
+// `
 
 const EditorArea = ({
     selectedDoc,
@@ -60,6 +58,8 @@ const EditorArea = ({
     documents,
     setDocuments
 }) => {
+
+    console.log(selectedDoc)
 
     const [unsavedChanges, setUnsavedChanges] = useState(true)
 
@@ -77,16 +77,17 @@ const EditorArea = ({
         body: newBody
     })
 
-    // useEffect(() => {
-    //     if (isIdle && unsavedChanges){
-    //         let remainingDocs = documents.filter(doc => doc.id !== selectedDoc.id) 
-    //         setDocuments(remainingDocs.concat({
-    //             ...selectedDoc,
-    //             date: new Date()
-    //         }))
-    //         setUnsavedChanges(false)
-    //     }
-    // }, [isIdle, unsavedChanges, documents, selectedDoc, setDocuments])
+    useEffect(() => {
+        if (isIdle && unsavedChanges){
+            let remainingDocs = documents.filter(doc => doc.id !== selectedDoc.id) 
+            setDocuments(remainingDocs.concat({
+                ...selectedDoc,
+                body: convertToRaw(selectedDoc.body.getCurrentContent()),
+                date: new Date()
+            }))
+            setUnsavedChanges(false)
+        }
+    }, [isIdle, unsavedChanges, documents, selectedDoc, setDocuments])
 
     return(
         <>
@@ -101,21 +102,12 @@ const EditorArea = ({
                 tagName="h1"
                 placeholder="Title..."
             />
-
-            {console.log(selectedDoc.body)}
-            <StyledEditor
-                tag="div"
-                text={selectedDoc.body}
+            <Editor 
+                editorState={selectedDoc.body} 
                 onChange={text => {
-                    if(text === "<p><br></p>") text = ""
                     handleBodyChange(text)
-                    if(text !== "") setUnsavedChanges(true)
-                }}
-                options={{
-                    // placeholder: (selectedDoc.body === "") ? "The rest is your canvas..." : false
-                    placeholder: false,
-                    toolbar: { buttons: ["bold", "italic", "underline", "unorderedlist", "h2", "h3"] } 
-                }}
+                    setUnsavedChanges(true)
+                }} 
                 />
             {unsavedChanges && <SavingMessage>Saving changes...</SavingMessage>}
         </>

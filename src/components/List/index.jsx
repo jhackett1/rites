@@ -12,12 +12,12 @@ const List = ({
             .map(doc =>
             <li key={doc.id}>
                 <Link to={`/${doc.id}`}><h2>{doc.title}</h2></Link>
-                <p dangerouslySetInnerHTML={{
+                {/* <p dangerouslySetInnerHTML={{
                     __html: doc.body
                         .split(" ")
                         .slice(0, 20)
                         .join(" ") + "..."
-                    }}></p>
+                    }}></p> */}
                 <p>{moment(doc.date).fromNow()}</p>
             </li>
         )}

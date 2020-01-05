@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import Editor from "../components/Editor"
+import { EditorState } from "draft-js"
 import { StorageContextConsumer } from "../contexts/storageContext"
 
 const NewPage = ({
@@ -12,7 +13,7 @@ const NewPage = ({
         return {
             id: newId,
             title: "",
-            body: ""
+            body: EditorState.createEmpty()
         }
     }
 
