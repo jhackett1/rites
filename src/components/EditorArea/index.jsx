@@ -84,7 +84,10 @@ const EditorArea = ({
             />
             <SlateEditor
                 value={selectedDoc.body}
-                onChange={handleBodyChange}
+                onChange={value => {
+                    handleBodyChange(value)
+                    setUnsavedChanges(true)
+                }}
             />
             {unsavedChanges && <SavingMessage>Saving changes...</SavingMessage>}
         </>
