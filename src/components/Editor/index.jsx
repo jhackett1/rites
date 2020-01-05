@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { useIdle } from "use-idle"
 import ContentEditable from "react-contenteditable"
-import { Editor, convertToRaw } from "draft-js"
+import { convertToRaw } from "draft-js"
+import Draft from "../Draft"
 
 const SavingMessage = styled.p`
     font-family: "Open Sans", sans-serif;
@@ -34,32 +35,12 @@ const TitleEditor = styled(ContentEditable)`
     }
 `
 
-// const StyledEditor = styled(Editor)`
-//     /* font-size: 1.1rem; */
-//     &:focus{
-//         outline: none;
-//     }
-//     p{
-//         margin-bottom: 25px;
-//     }
-//     ul, ol{
-//         margin-left: 25px;
-//         margin-bottom: 25px;
-//     }
-//     li{
-//         padding-left: 5px;
-//         margin-bottom: 10px;
-//     }
-// `
-
 const EditorArea = ({
     selectedDoc,
     setSelectedDoc,
     documents,
     setDocuments
 }) => {
-
-    console.log(selectedDoc)
 
     const [unsavedChanges, setUnsavedChanges] = useState(true)
 
@@ -102,13 +83,13 @@ const EditorArea = ({
                 tagName="h1"
                 placeholder="Title..."
             />
-            <Editor 
-                editorState={selectedDoc.body} 
+            <Draft
+                value={selectedDoc.body}
                 onChange={text => {
                     handleBodyChange(text)
                     setUnsavedChanges(true)
-                }} 
-                />
+                }}
+            />
             {unsavedChanges && <SavingMessage>Saving changes...</SavingMessage>}
         </>
     )
