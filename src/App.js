@@ -40,6 +40,10 @@ const GlobalStyle = createGlobalStyle`
       padding: 0;
       box-sizing: border-box;
   }
+  *::selection{
+    background-color: #ADFEEA;
+    opacity: 0.5;
+  }
   body{
     overflow: hidden;
     color: #1C1C1C;

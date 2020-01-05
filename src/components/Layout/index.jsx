@@ -16,15 +16,15 @@ const Main = styled.main`
 `
 
 const Container = styled.div`
-  margin: 0 auto;
-  padding: 45px 35px;
+  margin: 50px auto;
+  padding: 20px;
   max-width: 650px;
   width: 100%;
-  @media screen and (min-width: 800px){
-    padding: 60px 25px;
+  @media screen and (min-width: 600px){
+    margin: 75px auto 50px auto;
   }
   @media screen and (min-width: 1000px){
-    padding: 100px 25px;
+    margin: 120px auto 50px auto;
   }
 `
 
@@ -36,8 +36,8 @@ const RecentsButton = styled.button`
     font-size: 0.9rem;
     text-transform: uppercase;
     position: absolute;
-    left: 10px;
-    top: 10px;
+    left: 20px;
+    top: 20px;
     cursor: pointer;
     letter-spacing: 1px;
     z-index: 2;
