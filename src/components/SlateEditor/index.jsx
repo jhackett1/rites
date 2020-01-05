@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from "react"
 import { createEditor } from 'slate'
 import { Slate, Editable, withReact } from "slate-react"
-import { withHistory } from "slate-history"
+// import { withHistory } from "slate-history"
 import isHotkey from 'is-hotkey'
 import { withShortcuts } from "./markdown-shortcuts"
 import { HOTKEYS, Leaf, toggleMark } from "./keyboard-shortcuts"
@@ -38,7 +38,7 @@ const SlateEditor = ({
 
     const renderLeaf = useCallback(props => <Leaf {...props} />, [])
     const renderElement = useCallback(props => <Element {...props} />, [])
-    const editor = useMemo(() => withShortcuts(withReact(withHistory(createEditor()))), [])
+    const editor = useMemo(() => withShortcuts(withReact(createEditor())), [])
 
     return(
         <Slate 

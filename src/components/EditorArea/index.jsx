@@ -4,6 +4,9 @@ import { useIdle } from "use-idle"
 import ContentEditable from "react-contenteditable"
 import SlateEditor from "../SlateEditor"
 
+import Editor from "rich-markdown-editor";
+
+
 const SavingMessage = styled.p`
     font-family: "Open Sans", sans-serif;
     font-weight: light;
@@ -82,6 +85,13 @@ const EditorArea = ({
                 tagName="h1"
                 placeholder="Title..."
             />
+
+ 
+<Editor
+  defaultValue="Hello world!"
+/>
+
+
             <SlateEditor
                 value={selectedDoc.body}
                 onChange={value => {
