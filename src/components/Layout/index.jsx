@@ -13,19 +13,14 @@ const Outer = styled.div`
 const Main = styled.main`
   position: relative;
   flex: 1;
+  overflow-y: scroll;
 `
 
 const Container = styled.div`
-  margin: 50px auto;
-  padding: 20px;
+  margin: 0px auto;
+  padding: 0px 20px;
   max-width: 650px;
   width: 100%;
-  @media screen and (min-width: 600px){
-    margin: 75px auto 50px auto;
-  }
-  @media screen and (min-width: 1000px){
-    margin: 120px auto 50px auto;
-  }
 `
 
 const RecentsButton = styled.button`
@@ -35,7 +30,7 @@ const RecentsButton = styled.button`
     font-weight: light;
     font-size: 0.9rem;
     text-transform: uppercase;
-    position: absolute;
+    position: sticky;
     left: 20px;
     top: 20px;
     cursor: pointer;
@@ -55,6 +50,7 @@ const Overlay = styled.div`
   left: 0px;
   width: 100%;
   height: 100%;
+  z-index: 2;
 `
 
 const Layout = ({
@@ -67,11 +63,11 @@ const Layout = ({
     <Outer panelOpen={panelOpen}>
         <Sidebar panelOpen={panelOpen}/>
         <Main>
-        <Container>
-  <RecentsButton onClick={()=> setPanelOpen(!panelOpen)}>{panelOpen ? "Close recents" : "Recents"}</RecentsButton>
-            {children}
-        </Container>
-        {panelOpen && <Overlay onClick={()=> setPanelOpen(false)}/>}
+          <RecentsButton onClick={()=> setPanelOpen(!panelOpen)}>{panelOpen ? "Close recents" : "Recents"}</RecentsButton>
+          <Container>
+              {children}
+          </Container>
+          {panelOpen && <Overlay onClick={()=> setPanelOpen(false)}/>}
         </Main>
     </Outer>
   )

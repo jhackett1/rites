@@ -2,9 +2,6 @@ import React from "react"
 import { StorageContextConsumer } from "../../contexts/storageContext"
 import { Link } from "react-router-dom"
 import moment from "moment"
-import { Node } from "slate"
-
-// const serialise = value => value.map(n => Node.string(n)).join('\n')
 
 const List = ({
     documents

@@ -1,0 +1,27 @@
+.md-RichEditor-root{
+    padding: 0;
+    /* increase size of everything */
+    font-size: 1.2rem;
+
+    h1, h2, h3 {
+        margin-top: 40px;
+    }
+}
+
+.md-editor-toolbar{
+    background: #1c1c1c;
+    border-radius: 0px;
+    box-shadow: none;
+}
+
+.md-editor-toolbar::after{
+    border-top: 5px solid #1c1c1c;
+}
+
+.md-RichEditor-activeButton{
+    color: #ADFEEA;
+}
+
+.public-DraftEditor-content{
+    margin-bottom: 100px;
+}

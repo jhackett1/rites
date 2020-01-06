@@ -1,7 +1,7 @@
 import React from "react"
 import { Editor } from "medium-draft"
 import "medium-draft/lib/index.css"
-import "./styles.css"
+import "./styles.scss"
 
 const DraftEditor = ({
   value,

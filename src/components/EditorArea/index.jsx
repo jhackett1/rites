@@ -10,7 +10,7 @@ const SavingMessage = styled.p`
     font-weight: light;
     font-size: 0.9rem;
     text-transform: uppercase;
-    position: absolute;
+    position: fixed;
     right: 20px;
     bottom: 20px;
     letter-spacing: 1px;
@@ -20,7 +20,12 @@ const TitleEditor = styled(ContentEditable)`
     font-size: 2.5rem;
     min-height: 60px;
     margin-bottom: 25px;
+    margin-top: 70px;
+    @media screen and (min-width: 600px){
+        margin-top: 95px;
+    }
     @media screen and (min-width: 1000px){
+        margin-top: 140px;
         font-size: 3rem;
     }
 
