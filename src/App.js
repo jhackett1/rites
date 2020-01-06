@@ -45,9 +45,11 @@ const GlobalStyle = createGlobalStyle`
     opacity: 0.5;
   }
   body{
+    overflow: ${props => props.panelOpen ? "hidden" : ""};
     transform: ${props => props.panelOpen ? "translateX(300px)" : ""};
     transition: transform 0.2s ease-out;
     color: #1C1C1C;
+    overflow-x: hidden;
     /* @media (prefers-color-scheme: dark) {
       background-color: #1c1c1c;
       color: white !important;

@@ -4,7 +4,6 @@ import { useIdle } from "use-idle"
 import ContentEditable from "react-contenteditable"
 import Editor from "../DraftEditor"
 import { convertToRaw } from "draft-js"
-import moment from "moment"
 
 const SavingMessage = styled.p`
     font-family: "Open Sans", sans-serif;
@@ -48,7 +47,7 @@ const EditorArea = ({
     setDocuments
 }) => {
 
-    const [unsavedChanges, setUnsavedChanges] = useState(true)
+    const [unsavedChanges, setUnsavedChanges] = useState(false)
 
     const isIdle = useIdle({
         timeToIdle: 500
@@ -64,17 +63,35 @@ const EditorArea = ({
         body: newBody
     })
 
+    // Autosave
     useEffect(() => {
-        if (isIdle && unsavedChanges){
+        if (isIdle && unsavedChanges && (selectedDoc.title !== "")){
             let remainingDocs = documents.filter(doc => doc.id !== selectedDoc.id) 
             setDocuments(remainingDocs.concat({
-                ...selectedDoc,
+                id: selectedDoc.id,
+                title: selectedDoc.title.replace(/<\/?[^>]+(>|$)/g, ""),
                 body: convertToRaw(selectedDoc.body.getCurrentContent()),
                 date: new Date()
             }))
             setUnsavedChanges(false)
         }
     }, [isIdle, unsavedChanges, documents, selectedDoc, setDocuments])
+
+    console.log(unsavedChanges)
+
+    // const handleLeave = e => {
+    //     e.preventDefault()
+    //     console.log("unsaved changed: ", unsavedChanges)
+    //     if(unsavedChanges){ window.confirm() }
+    // }
+
+    // Warn on leave
+    // useEffect(() => {
+    //     window.addEventListener("beforeunload", handleLeave)
+    //     return () => {
+    //       window.removeEventListener("beforeunload", handleLeave)
+    //     }
+    //   }, [])
 
     return(
         <>

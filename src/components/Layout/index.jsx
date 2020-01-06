@@ -7,6 +7,7 @@ const Container = styled.main`
   padding: 0px 20px;
   max-width: 650px;
   width: 100%;
+  min-height: 100vh;
 `
 
 const RecentsButton = styled.button`
@@ -35,7 +36,7 @@ const Overlay = styled.div`
   top: 0px;
   left: 0px;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   z-index: 2;
 `
 

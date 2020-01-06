@@ -38,7 +38,6 @@ const Sidebar = ({
     return(
         <Outer 
             aria-hidden={!panelOpen}
-            tabIndex="-1"
         >
             <NewButton to="/new">New</NewButton>
             <List/>
