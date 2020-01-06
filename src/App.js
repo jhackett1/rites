@@ -45,6 +45,8 @@ const GlobalStyle = createGlobalStyle`
     opacity: 0.5;
   }
   body{
+    transform: ${props => props.panelOpen ? "translateX(300px)" : ""};
+    transition: transform 0.2s ease-out;
     color: #1C1C1C;
     /* @media (prefers-color-scheme: dark) {
       background-color: #1c1c1c;
@@ -55,21 +57,26 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const App = () => {
+
+  const [panelOpen, setPanelOpen ] = useState(false)
+
   return(
-    
+    <StorageContextProvider>
+      <GlobalStyle panelOpen={panelOpen}/>
+      <Router>
+        <Layout
+          panelOpen={panelOpen}
+          setPanelOpen={setPanelOpen}
+          >
+          <Switch>
+            <Route exact path="/" component={MostRecent}/>
+            <Route path="/new" component={New}/>
+            <Route path="/:id" component={Doc}/>
+          </Switch>
+        </Layout>
+      </Router>
+    </StorageContextProvider>
   )
-  <StorageContextProvider>
-    <GlobalStyle/>
-    <Router>
-      <Layout>
-        <Switch>
-          <Route exact path="/" component={MostRecent}/>
-          <Route path="/new" component={New}/>
-          <Route path="/:id" component={Doc}/>
-        </Switch>
-      </Layout>
-    </Router>
-  </StorageContextProvider>
 }
 
 

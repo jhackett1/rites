@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import styled from "styled-components"
 import Sidebar from "../Sidebar"
 
@@ -40,10 +40,10 @@ const Overlay = styled.div`
 `
 
 const Layout = ({
+    panelOpen,
+    setPanelOpen,
     children
 }) => {
-
-  const [panelOpen, setPanelOpen] = useState(false)
 
   return(
     <>
