@@ -4,6 +4,7 @@ import { useIdle } from "use-idle"
 import ContentEditable from "react-contenteditable"
 import Editor from "../DraftEditor"
 import { convertToRaw } from "draft-js"
+import moment from "moment"
 
 const SavingMessage = styled.p`
     font-family: "Open Sans", sans-serif;
@@ -93,7 +94,7 @@ const EditorArea = ({
                     setUnsavedChanges(true)
                 }}
                 />
-            {unsavedChanges && <SavingMessage>Saving changes...</SavingMessage>}
+            {unsavedChanges ? <SavingMessage>Saving changes...</SavingMessage> : <SavingMessage>Saved</SavingMessage>}
         </>
     )
 }

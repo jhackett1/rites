@@ -7,6 +7,8 @@ const Outer = styled.aside`
     height: 100%;
     border-right: 1px solid #1c1c1c;
     width: 300px;
+    position: absolute;
+    left: -300px;
 `
 
 const NewButton = styled(Link)`

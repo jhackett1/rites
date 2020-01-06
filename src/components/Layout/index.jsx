@@ -2,21 +2,7 @@ import React, { useState } from "react"
 import styled from "styled-components"
 import Sidebar from "../Sidebar"
 
-const Outer = styled.div`
-  height: 100vh;
-  width: calc(100vw + 300px);
-  display: flex;
-  transition: transform 0.2s ease-out;
-  transform: ${props => props.panelOpen ? "translateX(0px)" : "translateX(-300px)"};
-`
-
-const Main = styled.main`
-  position: relative;
-  flex: 1;
-  overflow-y: scroll;
-`
-
-const Container = styled.div`
+const Container = styled.main`
   margin: 0px auto;
   padding: 0px 20px;
   max-width: 650px;
@@ -60,16 +46,14 @@ const Layout = ({
   const [panelOpen, setPanelOpen] = useState(false)
 
   return(
-    <Outer panelOpen={panelOpen}>
-        <Sidebar panelOpen={panelOpen}/>
-        <Main>
-          <RecentsButton onClick={()=> setPanelOpen(!panelOpen)}>{panelOpen ? "Close recents" : "Recents"}</RecentsButton>
-          <Container>
-              {children}
-          </Container>
-          {panelOpen && <Overlay onClick={()=> setPanelOpen(false)}/>}
-        </Main>
-    </Outer>
+    <>
+      <Sidebar panelOpen={panelOpen}/>
+      <RecentsButton onClick={()=> setPanelOpen(!panelOpen)}>{panelOpen ? "Close recents" : "Recents"}</RecentsButton>
+      <Container>
+          {children}
+      </Container>
+      {panelOpen && <Overlay onClick={()=> setPanelOpen(false)}/>}
+    </>
   )
 }
 
