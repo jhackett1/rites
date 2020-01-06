@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import EditorArea from "../components/EditorArea"
 import { StorageContextConsumer } from "../contexts/storageContext"
+import { createEditorState } from "medium-draft"
 
 const MostRecentPage = ({
     documents,
@@ -11,7 +12,7 @@ const MostRecentPage = ({
 
     const [selectedDoc, setSelectedDoc] = useState({
         title: "",
-        body: []
+        body: createEditorState()
     })
 
     useEffect(()=>{
@@ -19,7 +20,7 @@ const MostRecentPage = ({
                 let doc = documents.filter(doc => doc.id === parseInt(match.params.id))[0]
                 setSelectedDoc({
                     ...doc,
-                    body: doc.body
+                    body: createEditorState(doc.body)
                 })
             } else {
                 history.push("/")
