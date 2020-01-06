@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { createGlobalStyle } from "styled-components"
 import {BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import { StorageContextProvider } from "./contexts/storageContext"
@@ -54,7 +54,10 @@ const GlobalStyle = createGlobalStyle`
 
 `
 
-const App = () => 
+const App = () => {
+  return(
+    
+  )
   <StorageContextProvider>
     <GlobalStyle/>
     <Router>
@@ -67,5 +70,7 @@ const App = () =>
       </Layout>
     </Router>
   </StorageContextProvider>
+}
+
 
 export default App

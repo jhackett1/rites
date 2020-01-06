@@ -4,7 +4,7 @@ import List from "../DocumentList"
 import { Link } from "react-router-dom"
 
 const Outer = styled.aside`
-    height: 100%;
+    height: 100vh;
     border-right: 1px solid #1c1c1c;
     width: 300px;
     position: absolute;
