@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import EditorArea from "../components/EditorArea"
 import { StorageContextConsumer } from "../contexts/storageContext"
+import { createEditorState } from "medium-draft"
 
 const NewPage = ({
     documents,
@@ -12,10 +13,7 @@ const NewPage = ({
         return {
             id: newId,
             title: "",
-            body: [{
-                type: 'paragraph',
-                children: [{ text: ""}],
-            }]
+            body: createEditorState()
         }
     }
 

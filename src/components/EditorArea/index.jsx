@@ -3,9 +3,7 @@ import styled from "styled-components"
 import { useIdle } from "use-idle"
 import ContentEditable from "react-contenteditable"
 import Editor from "../DraftEditor"
-
-require('medium-editor/dist/css/medium-editor.css')
-require('medium-editor/dist/css/themes/default.css')
+import { convertToRaw } from "draft-js"
 
 const SavingMessage = styled.p`
     font-family: "Open Sans", sans-serif;
@@ -60,12 +58,14 @@ const EditorArea = ({
         body: newBody
     })
 
+    console.log(selectedDoc.body)
+
     useEffect(() => {
         if (isIdle && unsavedChanges){
             let remainingDocs = documents.filter(doc => doc.id !== selectedDoc.id) 
             setDocuments(remainingDocs.concat({
                 ...selectedDoc,
-                body: selectedDoc.body,
+                body: convertToRaw(selectedDoc.body.getCurrentContent()),
                 date: new Date()
             }))
             setUnsavedChanges(false)
@@ -77,23 +77,18 @@ const EditorArea = ({
             <TitleEditor
                 html={selectedDoc.title}
                 onChange={e => {
-                    const node = document.createElement('div')
-                    node.innerHTML = e.target.value
-                    handleTitleChange(node.innerText.replace(/(?:\r\n|\r|\n)/g, ' '))
+                    handleTitleChange(e.target.value.replace(/(<br>)*/g,""))
                     if(e.target.value !== "") setUnsavedChanges(true)
                 }}
                 tagName="h1"
                 placeholder="Title..."
             />
             <Editor         
-                // value={selectedDoc.body}
-                // onChange={value => {
-                //     handleBodyChange(value)
-                //     setUnsavedChanges(true)
-                // }}
-                // options={{ 
-                //     toolbar: { buttons: ['bold', 'italic', 'underline', 'unorderedlist'] } 
-                // }}
+                value={selectedDoc.body}
+                onChange={value => {
+                    handleBodyChange(value)
+                    setUnsavedChanges(true)
+                }}
                 />
             {unsavedChanges && <SavingMessage>Saving changes...</SavingMessage>}
         </>

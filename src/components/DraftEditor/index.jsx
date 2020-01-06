@@ -1,42 +1,45 @@
-import React from 'react';
-import { Editor, createEditorState } from 'medium-draft';
-import 'medium-draft/lib/index.css';
-import { BLOCK_BUTTONS } from 'medium-draft';
+import React from "react"
+import { Editor } from "medium-draft"
+import "medium-draft/lib/index.css"
+import "./styles.css"
 
-class DraftEditor extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      editorState: createEditorState()
-    }
-
-    this.onChange = (editorState) => {
-      this.setState({ editorState })
-    }
-
-    this.refsEditor = React.createRef()
-
-  }
-
-  componentDidMount() {
-    this.refsEditor.current.focus()
-  }
-
-  render() {
-    const { editorState } = this.state;
-    return (
-      <Editor
-        ref={this.refsEditor}
-        editorState={editorState}
-        sideButtons={[]}
-        onChange={this.onChange} 
-        toolbarConfig = {{
-          block: ['unordered-list-item', 'header-one', 'header-three'],
-          inline: ['BOLD', 'UNDERLINE', 'ITALIC'],
-        }}
-        />
-    )
-  }
-}
+const DraftEditor = ({
+  value,
+  onChange
+}) =>
+  <Editor
+    editorState={value}
+    onChange={onChange} 
+    sideButtons={[]}
+    toolbarConfig = {{
+      inline: ['BOLD', 'ITALIC', 'UNDERLINE']
+    }}
+    blockButtons={[
+      {
+        label: 'H2',
+        style: 'header-two',
+        icon: 'header',
+        description: 'Heading 2',
+      },
+      {
+        label: 'H3',
+        style: 'header-three',
+        icon: 'header',
+        description: 'Heading 3',
+      }, 
+      {
+        label: 'UL',
+        style: 'unordered-list-item',
+        icon: 'list-ul',
+        description: 'Unordered List',
+      }, 
+      {
+        label: '“',
+        style: 'blockquote',
+        icon: 'quote-right',
+        description: 'Blockquote',
+      }
+    ]}
+    />
 
 export default DraftEditor

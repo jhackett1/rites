@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import EditorArea from "../components/EditorArea"
 import { StorageContextConsumer } from "../contexts/storageContext"
+import { createEditorState } from "medium-draft"
 
 const MostRecentPage = ({
     documents,
@@ -12,16 +13,13 @@ const MostRecentPage = ({
             let doc = documents.sort((a, b) => b.date - a.date)[0]
             return {
                 ...doc,
-                body: doc.body
+                body: createEditorState(doc.body)
             }
         } else {
             return {
                 id: 1,
                 title: "",
-                body: [{
-                    type: 'paragraph',
-                    children: [{ text: ""}],
-                }]
+                body: createEditorState()
             }
         }
     }
