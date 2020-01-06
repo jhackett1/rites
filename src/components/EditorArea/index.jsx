@@ -63,8 +63,6 @@ const EditorArea = ({
         body: newBody
     })
 
-    console.log(selectedDoc.body)
-
     useEffect(() => {
         if (isIdle && unsavedChanges){
             let remainingDocs = documents.filter(doc => doc.id !== selectedDoc.id) 
@@ -82,7 +80,7 @@ const EditorArea = ({
             <TitleEditor
                 html={selectedDoc.title}
                 onChange={e => {
-                    handleTitleChange(e.target.value.replace(/(<br>)*/g,""))
+                    handleTitleChange(e.target.value)
                     if(e.target.value !== "") setUnsavedChanges(true)
                 }}
                 tagName="h1"
