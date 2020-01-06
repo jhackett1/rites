@@ -55,7 +55,10 @@ const List = ({
         {documents
             .sort((a, b) => new Date(b.date) - new Date(a.date))
             .map(doc =>
-            <Li key={doc.id}>
+            <Li 
+                key={doc.id}
+                onContextMenu={e => console.log(e)}
+                >
                 <StyledLink to={`/${doc.id}`}><H2>{doc.title}</H2></StyledLink>
                 <p dangerouslySetInnerHTML={{
                     __html: convertFromRaw(doc.body)

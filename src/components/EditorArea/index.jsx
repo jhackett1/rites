@@ -77,8 +77,6 @@ const EditorArea = ({
         }
     }, [isIdle, unsavedChanges, documents, selectedDoc, setDocuments])
 
-    console.log(unsavedChanges)
-
     // const handleLeave = e => {
     //     e.preventDefault()
     //     console.log("unsaved changed: ", unsavedChanges)
@@ -99,7 +97,7 @@ const EditorArea = ({
                 html={selectedDoc.title}
                 onChange={e => {
                     handleTitleChange(e.target.value)
-                    if(e.target.value !== "") setUnsavedChanges(true)
+                    if(e.target.value !== selectedDoc.title) setUnsavedChanges(true)
                 }}
                 tagName="h1"
                 placeholder="Title..."
