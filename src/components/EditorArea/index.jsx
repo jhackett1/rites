@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { useIdle } from "use-idle"
 import ContentEditable from "react-contenteditable"
-import SlateEditor from "../SlateEditor"
+import Editor from "../DraftEditor"
 
-import Editor from "rich-markdown-editor";
-
+require('medium-editor/dist/css/medium-editor.css')
+require('medium-editor/dist/css/themes/default.css')
 
 const SavingMessage = styled.p`
     font-family: "Open Sans", sans-serif;
@@ -85,20 +85,16 @@ const EditorArea = ({
                 tagName="h1"
                 placeholder="Title..."
             />
-
- 
-<Editor
-  defaultValue="Hello world!"
-/>
-
-
-            <SlateEditor
-                value={selectedDoc.body}
-                onChange={value => {
-                    handleBodyChange(value)
-                    setUnsavedChanges(true)
-                }}
-            />
+            <Editor         
+                // value={selectedDoc.body}
+                // onChange={value => {
+                //     handleBodyChange(value)
+                //     setUnsavedChanges(true)
+                // }}
+                // options={{ 
+                //     toolbar: { buttons: ['bold', 'italic', 'underline', 'unorderedlist'] } 
+                // }}
+                />
             {unsavedChanges && <SavingMessage>Saving changes...</SavingMessage>}
         </>
     )
